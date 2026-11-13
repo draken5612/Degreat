@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}{{ scaffold.name }} Rental - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}{{ scaffold.description|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-2" style="gap: 3rem; align-items: start;">
+                <div>
+                    {% include 'partials/photo_carousel.html' with heading=scaffold.name images=scaffold.gallery_images.all cover_image=scaffold.image cover_object=scaffold cover_alt=scaffold.name cover_focal_x=scaffold.focal_x cover_focal_y=scaffold.focal_y compact=True %}
+                    {% if not scaffold.image and not scaffold.gallery_images.all %}
+                        <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #003d99, #E8F0FF); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 5rem; color: white;">🏗️</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Scaffold Details -->
+                <div>
+                    <h1>{{ scaffold.name }}</h1>
+                    <p class="text-muted" style="font-size: 1.25rem; margin-bottom: var(--spacing-lg);">{{ scaffold.get_scaffold_type_display }}</p>
+
+                    <div style="background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                        <h4>Type</h4>
+                        <p>{{ scaffold.get_scaffold_type_display }}</p>
+                    </div>
+
+                    <div style="background: var(--off-white); padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                        <h4>Rental Rates</h4>
+                        <div style="margin-top: var(--spacing-md);">
+                            {% if scaffold.daily_rate %}
+                                <p><strong>Daily Rate:</strong> ₦{{ scaffold.daily_rate }}</p>
+                            {% endif %}
+                            {% if scaffold.weekly_rate %}
+                                <p><strong>Weekly Rate:</strong> ₦{{ scaffold.weekly_rate }}</p>
+                            {% endif %}
+                            {% if scaffold.monthly_rate %}
+                                <p><strong>Monthly Rate:</strong> ₦{{ scaffold.monthly_rate }}</p>
+                            {% endif %}
+                            {% if not scaffold.daily_rate %}
+                                <p class="text-muted"><em>Contact us for custom pricing</em></p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4>Description</h4>
+                        <p>{{ scaffold.description }}</p>
+                    </div>
+
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4>Features</h4>
+                        <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-md);">
+                            {% for feature in scaffold.features|split:"," %}
+                                <li>✓ {{ feature|striptags }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4>Best For</h4>
+                        <p>{{ scaffold.applications }}</p>
+                    </div>
+
+                    <div style="background: var(--primary-blue); color: white; padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                        <h4 style="color: white;">Ready to Rent?</h4>
+                        <p style="color: rgba(255, 255, 255, 0.95); margin-top: var(--spacing-md);">Professional installation and delivery available in Lagos and nationwide.</p>
+                        <div style="margin-top: var(--spacing-lg);">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary" style="background: white; color: #0052CC; margin-right: 1rem;">Request Rental</a>
+                            <a href="https://wa.me/234XXXXXXXXXX?text=Hi, I need to rent {{ scaffold.name }}. Can you provide details and availability?" class="btn btn-whatsapp" target="_blank">Chat on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Scaffolds -->
+            <div style="margin-top: var(--spacing-2xl); padding-top: var(--spacing-2xl); border-top: 2px solid var(--light-gray);">
+                <h3>Other Scaffolding Options</h3>
+                <p class="text-muted" style="margin-bottom: var(--spacing-lg);">Explore our complete range of scaffolding solutions</p>
+                
+                <div style="text-align: center;">
+                    <a href="{% url 'services:scaffold_list' %}" class="btn btn-primary">View All Scaffolds</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

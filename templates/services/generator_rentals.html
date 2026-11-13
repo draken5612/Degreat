@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}Generator Rentals - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Industrial and portable generator rental services in Lagos, Ikorodu, and nationwide Nigeria. 12kVA, 30kVA, 50kVA generators available.{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero" style="min-height: 400px;">
+        <div class="hero-content">
+            <h1>Generator Rental Services</h1>
+            <p>Industrial and portable generators for all your power needs</p>
+        </div>
+    </section>
+
+    <!-- Generators Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Available Generators</h2>
+                <p>Wide range of generators for various applications</p>
+            </div>
+
+            {% if generators %}
+                <div class="grid grid-2">
+                    {% for generator in generators %}
+                        <div class="card">
+                            <div style="background: linear-gradient(135deg, #0066FF, #E8F0FF); height: 200px; display: flex; align-items: center; justify-content: center;">
+                                {% if generator.image or generator.gallery_images.all %}
+                                    {% include 'partials/photo_carousel.html' with heading=generator.name images=generator.gallery_images.all cover_image=generator.image cover_object=generator cover_alt=generator.name cover_focal_x=generator.focal_x cover_focal_y=generator.focal_y compact=True card=True hide_heading=True %}
+                                {% else %}
+                                    <div style="font-size: 3rem;">⚙️</div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h4>{{ generator.name }}</h4>
+                                <p class="text-muted"><strong>{{ generator.capacity_kva }}kVA {{ generator.power_type }}</strong></p>
+                                <p>{{ generator.description|truncatewords:25 }}</p>
+                                
+                                {% if generator.daily_rate %}
+                                    <p style="margin-top: var(--spacing-md); color: var(--primary-blue); font-weight: 600;">
+                                        From ₦{{ generator.daily_rate }}/day
+                                    </p>
+                                {% endif %}
+                                
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="{% url 'services:generator_detail' generator.id %}" class="btn btn-primary">View Details</a>
+                                    <a href="#" onclick="openRentalForm('{{ generator.name }}')" class="btn btn-whatsapp" style="margin-left: 0.5rem;">Request Rental</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="text-align: center; color: var(--medium-gray);">No generators available at the moment. Please check back later.</p>
+            {% endif %}
+
+            {% include 'partials/photo_carousel.html' with heading="Generator Rental Work" images=gallery_images %}
+        </div>
+    </section>
+
+    <!-- Rental Process -->
+    <section class="section section-light">
+        <div class="container">
+            <h2>How to Rent</h2>
+            <div class="grid grid-3" style="margin-top: var(--spacing-xl);">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">1️⃣</div>
+                    <h4>Select Generator</h4>
+                    <p>Choose the generator that fits your power requirements.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">2️⃣</div>
+                    <h4>Request Rental</h4>
+                    <p>Contact us via WhatsApp or our contact form with your dates and location.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">3️⃣</div>
+                    <h4>Confirm & Deliver</h4>
+                    <p>We confirm availability and arrange delivery to your location.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specifications Note -->
+    <section class="section">
+        <div class="container">
+            <div style="background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; border-left: 4px solid var(--primary-blue);">
+                <h4>📋 Generator Specifications</h4>
+                <p style="margin-top: var(--spacing-md);">All our generators are regularly maintained and inspected to ensure optimal performance. They are suitable for welding machines, cutting machines, construction equipment, and general power supply needs.</p>
+                <p style="margin-top: var(--spacing-sm);"><strong>Delivery available within Lagos and nationwide. Contact us for delivery charges and availability.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background: linear-gradient(135deg, #0052CC, #003d99); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white;">Need a Generator Urgently?</h2>
+            <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.1rem;">Contact us now for immediate availability and fast delivery</p>
+            <div style="margin-top: var(--spacing-lg);">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg" style="background: white; color: #0052CC; margin-right: 1rem;">Contact Us</a>
+                <a href="https://wa.me/234XXXXXXXXXX?text=Hi, I need to rent a generator. Can you help?" class="btn btn-whatsapp btn-lg" target="_blank">Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function openRentalForm(generatorName) {
+            // In a full implementation, this would open a modal form
+            // For now, redirect to WhatsApp
+            const message = `Hi, I'm interested in renting the ${generatorName}. Can you provide details on availability and pricing?`;
+            window.open(`https://wa.me/234XXXXXXXXXX?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load cropping %}
+{% if cover_image or images %}
+<section class="photo-gallery{% if compact %} photo-gallery-compact{% endif %}{% if card %} photo-gallery-card{% endif %}" aria-label="{{ heading }}">
+    {% if not hide_heading %}
+        <div class="section-title">
+            <h2>{{ heading }}</h2>
+        </div>
+    {% endif %}
+    <div class="photo-carousel" data-photo-carousel>
+        <div class="photo-carousel-slides">
+            {% if cover_image %}
+                <figure class="photo-carousel-slide is-active" data-carousel-slide>
+                    {% if cover_object.use_manual_crop %}
+                        <button class="photo-carousel-image-button" type="button" data-lightbox-trigger data-lightbox-src="{{ cover_image.url }}" data-lightbox-alt="{{ cover_alt|default:heading }}" aria-label="Enlarge photo: {{ cover_alt|default:heading }}">
+                            <img src="{% cropped_thumbnail cover_object 'cropping' max_size='960x540' %}" alt="{{ cover_alt|default:heading }}" style="object-fit: cover; object-position: {{ cover_focal_x }}% {{ cover_focal_y }}%;">
+                        </button>
+                    {% else %}
+                        <button class="photo-carousel-image-button" type="button" data-lightbox-trigger data-lightbox-src="{{ cover_image.url }}" data-lightbox-alt="{{ cover_alt|default:heading }}" aria-label="Enlarge photo: {{ cover_alt|default:heading }}">
+                            <img src="{{ cover_image.url }}" alt="{{ cover_alt|default:heading }}" style="object-fit: contain; object-position: center center;">
+                        </button>
+                    {% endif %}
+                </figure>
+            {% endif %}
+            {% for image in images %}
+                <figure class="photo-carousel-slide{% if forloop.first and not cover_image %} is-active{% endif %}" data-carousel-slide>
+                    {% if image.use_manual_crop %}
+                        <button class="photo-carousel-image-button" type="button" data-lightbox-trigger data-lightbox-src="{{ image.image.url }}" data-lightbox-alt="{{ image.title|default:heading }}" aria-label="Enlarge photo: {{ image.title|default:heading }}">
+                            <img src="{% cropped_thumbnail image 'cropping' max_size='960x540' %}" alt="{{ image.title|default:heading }}" style="object-fit: cover; object-position: {{ image.focal_x }}% {{ image.focal_y }}%;">
+                        </button>
+                    {% else %}
+                        <button class="photo-carousel-image-button" type="button" data-lightbox-trigger data-lightbox-src="{{ image.image.url }}" data-lightbox-alt="{{ image.title|default:heading }}" aria-label="Enlarge photo: {{ image.title|default:heading }}">
+                            <img src="{{ image.image.url }}" alt="{{ image.title|default:heading }}" style="object-fit: contain; object-position: center center;">
+                        </button>
+                    {% endif %}
+                    {% if image.title %}<figcaption>{{ image.title }}</figcaption>{% endif %}
+                </figure>
+            {% endfor %}
+        </div>
+        <div class="photo-carousel-controls">
+            <button class="photo-carousel-button" type="button" data-carousel-previous aria-label="Previous photo">&#8592;</button>
+            <span class="photo-carousel-count" data-carousel-count aria-live="polite"></span>
+            <button class="photo-carousel-button" type="button" data-carousel-next aria-label="Next photo">&#8594;</button>
+        </div>
+    </div>
+</section>
+{% endif %}

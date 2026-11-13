@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}{{ generator.name }} Rental - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}{{ generator.description|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-2" style="gap: 3rem; align-items: start;">
+                <div>
+                    {% include 'partials/photo_carousel.html' with heading=generator.name images=generator.gallery_images.all cover_image=generator.image cover_object=generator cover_alt=generator.name cover_focal_x=generator.focal_x cover_focal_y=generator.focal_y compact=True %}
+                    {% if not generator.image and not generator.gallery_images.all %}
+                        <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #0066FF, #E8F0FF); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 5rem; color: white;">⚙️</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Generator Details -->
+                <div>
+                    <h1>{{ generator.name }}</h1>
+                    <p class="text-muted" style="font-size: 1.25rem; margin-bottom: var(--spacing-lg);">{{ generator.capacity_kva }}kVA {{ generator.power_type }} Generator</p>
+
+                    <div style="background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                        <h4>Specifications</h4>
+                        <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-md);">
+                            <li><strong>Capacity:</strong> {{ generator.capacity_kva }}kVA</li>
+                            <li><strong>Power Type:</strong> {{ generator.power_type }}</li>
+                            <li><strong>Type:</strong> {{ generator.get_generator_type_display }}</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--off-white); padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                        <h4>Rental Rates</h4>
+                        <div style="margin-top: var(--spacing-md);">
+                            {% if generator.daily_rate %}
+                                <p><strong>Daily Rate:</strong> ₦{{ generator.daily_rate }}</p>
+                            {% endif %}
+                            {% if generator.weekly_rate %}
+                                <p><strong>Weekly Rate:</strong> ₦{{ generator.weekly_rate }}</p>
+                            {% endif %}
+                            {% if generator.monthly_rate %}
+                                <p><strong>Monthly Rate:</strong> ₦{{ generator.monthly_rate }}</p>
+                            {% endif %}
+                            {% if not generator.daily_rate %}
+                                <p class="text-muted"><em>Contact us for custom pricing</em></p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4>Description</h4>
+                        <p>{{ generator.description }}</p>
+                    </div>
+
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4>Features</h4>
+                        <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-md);">
+                            {% for feature in generator.features|split:"," %}
+                                <li>✓ {{ feature|striptags }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4>Best For</h4>
+                        <p>{{ generator.applications }}</p>
+                    </div>
+
+                    <div style="background: var(--primary-blue); color: white; padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                        <h4 style="color: white;">Ready to Rent?</h4>
+                        <p style="color: rgba(255, 255, 255, 0.95); margin-top: var(--spacing-md);">Fast delivery and reliable service available in Lagos and nationwide.</p>
+                        <div style="margin-top: var(--spacing-lg);">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary" style="background: white; color: #0052CC; margin-right: 1rem;">Request Rental</a>
+                            <a href="https://wa.me/234XXXXXXXXXX?text=Hi, I need to rent the {{ generator.name }}. Can you provide details?" class="btn btn-whatsapp" target="_blank">Chat on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Generators -->
+            <div style="margin-top: var(--spacing-2xl); padding-top: var(--spacing-2xl); border-top: 2px solid var(--light-gray);">
+                <h3>Other Available Generators</h3>
+                <p class="text-muted" style="margin-bottom: var(--spacing-lg);">Explore our complete range of rental options</p>
+                
+                <div style="text-align: center;">
+                    <a href="{% url 'services:generator_list' %}" class="btn btn-primary">View All Generators</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

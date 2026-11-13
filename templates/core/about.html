@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Learn about DE-GREAT WELD ENTERPRISES and our commitment to professional metalworking services.{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1>About DE-GREAT WELD ENTERPRISES</h1>
+            <div class="grid grid-2" style="margin-top: var(--spacing-xl);">
+                <div>
+                    <h3>Our Story</h3>
+                    <p>DE-GREAT WELD ENTERPRISES was founded with a vision to provide world-class metalworking and fabrication services to Nigeria and beyond. We've grown from a small operation to become a trusted partner for construction companies, industries, and individuals across the country.</p>
+                    <p>Our commitment to quality, professionalism, and customer satisfaction has made us a leader in the welding and metal fabrication industry.</p>
+                </div>
+                <div>
+                    <h3>Our Mission</h3>
+                    <p>To deliver exceptional metalworking solutions that exceed customer expectations while maintaining the highest standards of safety and professionalism.</p>
+                    <p>We are dedicated to:</p>
+                    <ul style="margin-left: var(--spacing-lg);">
+                        <li>✓ Providing top-quality welding and fabrication services</li>
+                        <li>✓ Maintaining reliable and well-maintained equipment</li>
+                        <li>✓ Building lasting relationships with our clients</li>
+                        <li>✓ Supporting Nigeria's construction and industrial sectors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--spacing-2xl); border-top: 2px solid var(--light-gray); padding-top: var(--spacing-2xl);">
+                <h3>Why Work With Us?</h3>
+                <div class="grid grid-2" style="margin-top: var(--spacing-lg);">
+                    <div>
+                        <h4>Experienced Team</h4>
+                        <p>Our team consists of certified welders and fabrication specialists with extensive experience in the industry.</p>
+                    </div>
+                    <div>
+                        <h4>Quality Assurance</h4>
+                        <p>We adhere to international standards and best practices in all our operations.</p>
+                    </div>
+                    <div>
+                        <h4>Modern Equipment</h4>
+                        <p>We invest in state-of-the-art welding and fabrication equipment to ensure optimal results.</p>
+                    </div>
+                    <div>
+                        <h4>Competitive Pricing</h4>
+                        <p>We offer affordable rates without compromising on quality or professionalism.</p>
+                    </div>
+                    <div>
+                        <h4>Quick Response</h4>
+                        <p>We pride ourselves on fast turnaround times and reliable project delivery.</p>
+                    </div>
+                    <div>
+                        <h4>Nationwide Service</h4>
+                        <p>We operate across Nigeria and are willing to travel for larger projects.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--spacing-2xl); background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; text-align: center;">
+                <h3>Get In Touch</h3>
+                <p>Have questions? Want to discuss your project? Reach out to us today!</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg" style="margin-top: var(--spacing-md);">Contact Us</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

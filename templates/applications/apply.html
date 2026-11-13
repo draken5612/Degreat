@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}Apply as a Welder - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Join our team! Submit your welder application to work with DE-GREAT WELD ENTERPRISES.{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero" style="min-height: 300px;">
+        <div class="hero-content">
+            <h1>Join Our Team</h1>
+            <p>We're looking for skilled and dedicated welders</p>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="section">
+        <div class="container">
+            <div style="max-width: 700px; margin: 0 auto;">
+                <div style="background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-lg);">
+                    <h4>Why Work With Us?</h4>
+                    <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-md);">
+                        <li>✓ Competitive compensation</li>
+                        <li>✓ Flexible working arrangements</li>
+                        <li>✓ Professional development opportunities</li>
+                        <li>✓ Work on diverse projects nationwide</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-bottom: var(--spacing-lg);">Application Form</h3>
+
+                <form method="POST" enctype="multipart/form-data" id="applicationForm">
+                    {% csrf_token %}
+
+                    <fieldset>
+                        <legend style="font-size: 1.25rem; margin-bottom: var(--spacing-lg);">Personal Information</legend>
+                        
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="form-error">{{ form.first_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <div class="form-error">{{ form.last_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="form-error">{{ form.email.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                {{ form.phone.label_tag }}
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                    <div class="form-error">{{ form.phone.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.location.label_tag }}
+                                {{ form.location }}
+                                {% if form.location.errors %}
+                                    <div class="form-error">{{ form.location.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 2px solid var(--light-gray);">
+                        <legend style="font-size: 1.25rem; margin-bottom: var(--spacing-lg);">Professional Background</legend>
+                        
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                {{ form.experience_level.label_tag }}
+                                {{ form.experience_level }}
+                                {% if form.experience_level.errors %}
+                                    <div class="form-error">{{ form.experience_level.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.years_experience.label_tag }}
+                                {{ form.years_experience }}
+                                {% if form.years_experience.errors %}
+                                    <div class="form-error">{{ form.years_experience.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.specializations.label_tag }}
+                            <small style="color: var(--medium-gray); display: block; margin-bottom: 0.5rem;">e.g., Argon welding, MIG welding, Stainless steel welding</small>
+                            {{ form.specializations }}
+                            {% if form.specializations.errors %}
+                                <div class="form-error">{{ form.specializations.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.certifications.label_tag }}
+                            {{ form.certifications }}
+                            {% if form.certifications.errors %}
+                                <div class="form-error">{{ form.certifications.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 2px solid var(--light-gray);">
+                        <legend style="font-size: 1.25rem; margin-bottom: var(--spacing-lg);">Availability & Preferences</legend>
+                        
+                        <div class="form-group">
+                            {{ form.availability.label_tag }}
+                            {{ form.availability }}
+                            {% if form.availability.errors %}
+                                <div class="form-error">{{ form.availability.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-check">
+                            {{ form.can_travel }}
+                            {{ form.can_travel.label_tag }}
+                            {% if form.can_travel.errors %}
+                                <div class="form-error">{{ form.can_travel.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 2px solid var(--light-gray);">
+                        <legend style="font-size: 1.25rem; margin-bottom: var(--spacing-lg);">Documents & Portfolio</legend>
+                        
+                        <div class="form-group">
+                            {{ form.cv.label_tag }}
+                            <small style="color: var(--medium-gray); display: block; margin-bottom: 0.5rem;">PDF, DOC, or DOCX format</small>
+                            {{ form.cv }}
+                            {% if form.cv.errors %}
+                                <div class="form-error">{{ form.cv.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.portfolio_link.label_tag }}
+                            {{ form.portfolio_link }}
+                            {% if form.portfolio_link.errors %}
+                                <div class="form-error">{{ form.portfolio_link.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.work_samples.label_tag }}
+                            <small style="color: var(--medium-gray); display: block; margin-bottom: 0.5rem;">Photos or videos of previous work</small>
+                            {{ form.work_samples }}
+                            {% if form.work_samples.errors %}
+                                <div class="form-error">{{ form.work_samples.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.cover_letter.label_tag }}
+                            {{ form.cover_letter }}
+                            {% if form.cover_letter.errors %}
+                                <div class="form-error">{{ form.cover_letter.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </fieldset>
+
+                    <div style="margin-top: var(--spacing-xl);">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

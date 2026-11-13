@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Frequently asked questions about our welding and generator rental services.{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container" style="max-width: 800px;">
+            <h1 style="text-align: center; margin-bottom: var(--spacing-xl);">Frequently Asked Questions</h1>
+
+            <div style="margin-bottom: var(--spacing-lg);">
+                <h4>💼 About Our Services</h4>
+                
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>What types of welding services do you offer?</h5>
+                    <p>We provide professional welding services including Argon welding, stainless steel welding, mild steel welding, and custom metal fabrication. Each service is performed by certified professionals using industry-standard equipment and techniques.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>Can you handle large fabrication projects?</h5>
+                    <p>Yes! We handle projects of all sizes, from small custom pieces to large industrial fabrication projects. Our team is willing to travel nationwide Nigeria for bigger jobs. Contact us to discuss your project requirements.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>What areas do you serve?</h5>
+                    <p>We are based in Ikorodu, Lagos, and operate nationwide Nigeria. We can travel to any location for welding and fabrication services. For generator and scaffold rentals, we offer service in Lagos and surrounding areas with nationwide availability on request.</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--spacing-lg); border-top: 1px solid var(--light-gray); padding-top: var(--spacing-lg);">
+                <h4>⚙️ Generator Rentals</h4>
+                
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>What sizes of generators do you have available?</h5>
+                    <p>We offer various sizes including 12kVA petrol generators, industrial 30kVA and 50kVA generators, diesel-powered, and gas-powered options. The right generator depends on your power requirements. Contact us for recommendations.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>How quickly can you deliver a generator?</h5>
+                    <p>We offer fast delivery and setup. For urgent needs within Lagos, we can typically arrange delivery within 24 hours. Nationwide orders may take 2-3 days depending on location. Contact us directly for urgent requests.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>What are your rental terms?</h5>
+                    <p>We offer flexible rental terms: daily, weekly, and monthly rates. Most customers rent for days to weeks, but long-term contracts are available. All rates include delivery within service areas.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>Is maintenance included in rental?</h5>
+                    <p>Yes! All generators are regularly maintained and inspected before rental. We ensure they're in optimal working condition. If issues arise during your rental period, contact us immediately for support.</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--spacing-lg); border-top: 1px solid var(--light-gray); padding-top: var(--spacing-lg);">
+                <h4>👷 Welder Employment</h4>
+                
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>What qualifications do I need to apply?</h5>
+                    <p>We welcome welders with varying experience levels (beginner through senior). Basic requirements include proven welding experience, relevant certifications where applicable, and willingness to work professionally. Submit your CV and work samples.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>Do you offer full-time positions?</h5>
+                    <p>We primarily work on a part-time and contract basis, calling on experienced welders when we have larger projects. However, skilled welders with consistent availability may be considered for full-time arrangements. Discuss this during your interview.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>How do I apply to work with you?</h5>
+                    <p>Visit our "Join Our Team" page and fill out the online application form. Include your CV, work experience details, certifications, and portfolio of previous work. We review applications and contact candidates within 2-3 weeks.</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--spacing-lg); border-top: 1px solid var(--light-gray); padding-top: var(--spacing-lg);">
+                <h4>💬 General Questions</h4>
+                
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>How can I get a quotation for a project?</h5>
+                    <p>Contact us via WhatsApp, email, or our online contact form with project details. For the fastest response, WhatsApp is recommended. Provide as much detail as possible about your project and we'll provide an accurate quote.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>Do you offer payment plans?</h5>
+                    <p>Payment terms vary based on project scope. Contact us directly to discuss payment arrangements for larger projects or long-term rentals.</p>
+                </div>
+
+                <div style="margin-top: var(--spacing-md);">
+                    <h5>What if I'm not satisfied with the work?</h5>
+                    <p>Your satisfaction is our priority. If there are any issues with our work, we address them immediately. Contact us directly to discuss any concerns.</p>
+                </div>
+            </div>
+
+            <div style="background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; margin-top: var(--spacing-xl); text-align: center;">
+                <h4>Didn't find your answer?</h4>
+                <p>Contact us directly and we'll be happy to help!</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary" style="margin-top: var(--spacing-md);">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

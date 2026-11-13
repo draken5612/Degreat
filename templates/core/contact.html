@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Get in touch with DE-GREAT WELD ENTERPRISES for all your metalworking needs. Contact us via phone, email, or WhatsApp.{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero" style="min-height: 300px;">
+        <div class="hero-content">
+            <h1>Get In Touch</h1>
+            <p>We're here to help with your project</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-2" style="gap: 3rem;">
+                <!-- Contact Info -->
+                <div>
+                    <h3>Contact Information</h3>
+                    
+                    <div style="margin-top: var(--spacing-lg);">
+                        <h5>📍 Address</h5>
+                        <p>Ikorodu, Lagos State<br>Nigeria</p>
+                    </div>
+
+                    <div style="margin-top: var(--spacing-lg);">
+                        <h5>📞 Phone</h5>
+                        <p><a href="tel:+234XXXXXXXXXX" style="color: var(--primary-blue); text-decoration: none;">+234-XXX-XXX-XXXX</a></p>
+                    </div>
+
+                    <div style="margin-top: var(--spacing-lg);">
+                        <h5>📧 Email</h5>
+                        <p><a href="mailto:info@degreatwelds.com" style="color: var(--primary-blue); text-decoration: none;">info@degreatwelds.com</a></p>
+                    </div>
+
+                    <div style="margin-top: var(--spacing-lg);">
+                        <h5>💬 WhatsApp</h5>
+                        <p><a href="https://wa.me/234XXXXXXXXXX" target="_blank" class="btn btn-whatsapp">Chat on WhatsApp</a></p>
+                    </div>
+
+                    <div style="margin-top: var(--spacing-xl); padding: var(--spacing-lg); background: var(--light-blue); border-radius: 0.75rem;">
+                        <h5>Service Areas</h5>
+                        <ul style="margin-left: var(--spacing-lg); color: var(--medium-gray);">
+                            <li>Lagos (Ikorodu, Ginti, and surrounding areas)</li>
+                            <li>Nationwide Nigeria</li>
+                            <li>Willing to travel for larger projects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div>
+                    <h3>Send us a Message</h3>
+                    
+                    <form id="contactForm" style="margin-top: var(--spacing-lg);">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" name="phone" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Inquiry Type *</label>
+                            <select name="inquiry_type" class="form-control" required>
+                                <option value="">-- Select Type --</option>
+                                <option value="welding">Welding Service</option>
+                                <option value="generator">Generator Rental</option>
+                                <option value="scaffold">Scaffold Rental</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Message *</label>
+                            <textarea name="message" class="form-control" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section section-light">
+        <div class="container">
+            <h3 style="text-align: center; margin-bottom: var(--spacing-lg);">Our Location</h3>
+            <div style="width: 100%; height: 400px; background: var(--light-gray); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                <p style="color: var(--medium-gray);">📍 Ikorodu, Lagos State, Nigeria<br><em>Map will be embedded here</em></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.querySelector('[name="name"]').value,
+                email: document.querySelector('[name="email"]').value,
+                phone: document.querySelector('[name="phone"]').value,
+                inquiry_type: document.querySelector('[name="inquiry_type"]').value,
+                message: document.querySelector('[name="message"]').value,
+                whatsapp_number: '234XXXXXXXXXX'
+            };
+
+            try {
+                const response = await fetch("{% url 'core:contact' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]')?.value || ''
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    alert('Thank you! Your message has been received. Redirecting to WhatsApp...');
+                    setTimeout(() => {
+                        window.open(data.whatsapp_url, '_blank');
+                        document.getElementById('contactForm').reset();
+                    }, 500);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+{% endblock %}

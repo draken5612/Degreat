@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Professional metalworking and fabrication services in Nigeria. Welding, metal fabrication, and generator rentals.{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+   <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/hero-video.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+        <h1>Professional Metalworking Solutions</h1>
+        <p>Excellence in welding, fabrication, and equipment rentals across Nigeria</p>
+        <a href="{% url 'services:welding_list' %}" class="btn btn-primary btn-lg">Explore Our Services</a>
+    </div>
+</section>
+    <!-- Services Overview -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>What We Offer</h2>
+                <p>Complete metalworking and rental solutions for every project</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <!-- Welding Services Card -->
+                <div class="card fade-in">
+                    <div style="background: linear-gradient(135deg, #0052CC, #E8F0FF); height: 150px; display: flex; align-items: center; justify-content: center;">
+                        <div style="font-size: 4rem; color: white;">⚡</div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Welding Services</h4>
+                        <p>Professional welding and metal fabrication including Argon welding, stainless steel welding, and mild steel welding.</p>
+                        <a href="{% url 'services:welding_list' %}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Generator Rentals Card -->
+                <div class="card fade-in">
+                    <div style="background: linear-gradient(135deg, #0066FF, #E8F0FF); height: 150px; display: flex; align-items: center; justify-content: center;">
+                        <div style="font-size: 4rem; color: white;">⚙️</div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Generator Rentals</h4>
+                        <p>Industrial, petrol, diesel, and gas-powered generators available for short-term and long-term rental.</p>
+                        <a href="{% url 'services:generator_list' %}" class="btn btn-primary">View Generators</a>
+                    </div>
+                </div>
+
+                <!-- Scaffold Rentals Card -->
+                <div class="card fade-in">
+                    <div style="background: linear-gradient(135deg, #003d99, #E8F0FF); height: 150px; display: flex; align-items: center; justify-content: center;">
+                        <div style="font-size: 4rem; color: white;">🏗️</div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Scaffold Rentals</h4>
+                        <p>Professional scaffolding solutions for construction projects across Lagos and nationwide.</p>
+                        <a href="{% url 'services:scaffold_list' %}" class="btn btn-primary">View Scaffolds</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose DE-GREAT WELD?</h2>
+            </div>
+            
+            <div class="grid grid-2">
+                <div>
+                    <h4>✓ Professional Expertise</h4>
+                    <p>Years of experience in metalworking and fabrication with a team of certified professionals.</p>
+                </div>
+                <div>
+                    <h4>✓ Quality Guaranteed</h4>
+                    <p>We maintain the highest standards in all our services and equipment maintenance.</p>
+                </div>
+                <div>
+                    <h4>✓ Nationwide Coverage</h4>
+                    <p>Operating across Nigeria with the flexibility to travel for larger projects.</p>
+                </div>
+                <div>
+                    <h4>✓ Affordable Rates</h4>
+                    <p>Competitive pricing without compromising on quality or professionalism.</p>
+                </div>
+                <div>
+                    <h4>✓ Fast Response</h4>
+                    <p>Quick turnaround times and reliable communication with all clients.</p>
+                </div>
+                <div>
+                    <h4>✓ Flexible Options</h4>
+                    <p>Customizable packages to fit your specific project needs and budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Portfolio -->
+    {% if featured_projects %}
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Projects</h2>
+                <p>See what we've accomplished</p>
+            </div>
+            
+            <div class="grid grid-3">
+                {% for project in featured_projects %}
+                <div class="card">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-image">
+                    {% else %}
+                        <div class="card-image" style="background: linear-gradient(135deg, #0052CC, #E8F0FF); display: flex; align-items: center; justify-content: center;">
+                            <span style="color: white; font-size: 3rem;">📷</span>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h4>{{ project.title }}</h4>
+                        <p class="text-muted">{{ project.project_type }}</p>
+                        <p>{{ project.description|truncatewords:20 }}</p>
+                        <a href="{% url 'portfolio:project_detail' project.id %}" class="btn btn-outline">View Project</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div style="text-align: center; margin-top: var(--spacing-xl);">
+                <a href="{% url 'portfolio:portfolio' %}" class="btn btn-primary btn-lg">View All Projects</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Call to Action -->
+    <section class="section" style="background: linear-gradient(135deg, #0052CC, #003d99); color: white; text-align: center;">
+        <div class="container">
+            <h2 style="color: white;">Ready to Get Started?</h2>
+            <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.1rem;">Contact us today for a free consultation or project quote</p>
+            <div style="margin-top: var(--spacing-lg);">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg" style="background: white; color: #0052CC; margin-right: 1rem;">Get in Touch</a>
+                <a href="{% url 'core:whatsapp' %}?service=general&phone=234XXXXXXXXXX" class="btn btn-whatsapp btn-lg">Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

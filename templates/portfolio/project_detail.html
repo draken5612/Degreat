@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}{{ project.description|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1>{{ project.title }}</h1>
+            <p class="text-muted" style="font-size: 1.1rem; margin-bottom: var(--spacing-lg);">
+                {{ project.get_project_type_display }} 
+                {% if project.client %} • Client: {{ project.client }}{% endif %}
+                {% if project.location %} • Location: {{ project.location }}{% endif %}
+            </p>
+
+            {% include 'partials/photo_carousel.html' with heading="Project Gallery" images=project.gallery_images.all cover_image=project.image cover_object=project cover_alt=project.title cover_focal_x=project.focal_x cover_focal_y=project.focal_y %}
+
+            <div class="grid grid-3" style="margin-bottom: var(--spacing-xl);">
+                <div>
+                    <h5>Project Type</h5>
+                    <p>{{ project.get_project_type_display }}</p>
+                </div>
+                <div>
+                    <h5>Completion Date</h5>
+                    <p>{{ project.completion_date|date:"F Y" }}</p>
+                </div>
+                {% if project.client %}
+                <div>
+                    <h5>Client</h5>
+                    <p>{{ project.client }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div style="background: var(--light-blue); padding: var(--spacing-lg); border-radius: 0.75rem; margin-bottom: var(--spacing-xl);">
+                <h3>Project Overview</h3>
+                <p style="margin-top: var(--spacing-md); color: var(--dark-gray);">{{ project.description }}</p>
+            </div>
+
+            <!-- Related Projects -->
+            {% if related_projects %}
+            <div style="margin-top: var(--spacing-2xl); padding-top: var(--spacing-2xl); border-top: 2px solid var(--light-gray);">
+                <h3 style="margin-bottom: var(--spacing-lg);">Related Projects</h3>
+                <div class="grid grid-3">
+                    {% for related in related_projects %}
+                        <div class="card">
+                            <div style="height: 200px; overflow: hidden;">
+                                {% if related.image %}
+                                    <img src="{{ related.image.url }}" alt="{{ related.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                {% else %}
+                                    <div style="width: 100%; height: 100%; background: var(--light-gray); display: flex; align-items: center; justify-content: center;">
+                                        <span style="font-size: 2rem;">📷</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h4>{{ related.title }}</h4>
+                                <p class="text-muted">{{ related.get_project_type_display }}</p>
+                                <a href="{% url 'portfolio:project_detail' related.id %}" class="btn btn-primary btn-sm">View Project</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- CTA -->
+            <div style="margin-top: var(--spacing-2xl); padding: var(--spacing-xl); background: linear-gradient(135deg, #0052CC, #003d99); color: white; border-radius: 0.75rem; text-align: center;">
+                <h3 style="color: white;">Interested in a Similar Project?</h3>
+                <p style="color: rgba(255, 255, 255, 0.95); margin-top: var(--spacing-md);">Contact us to discuss your project requirements and get a professional quote</p>
+                <div style="margin-top: var(--spacing-lg);">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary" style="background: white; color: #0052CC; margin-right: 1rem;">Get Quote</a>
+                    <a href="https://wa.me/234XXXXXXXXXX?text=Hi, I'm interested in a welding/fabrication project similar to {{ project.title }}. Can we discuss?" class="btn btn-whatsapp" target="_blank">Chat on WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

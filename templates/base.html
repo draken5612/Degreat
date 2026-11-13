@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}DE-GREAT WELD ENTERPRISES - Professional metalworking, welding, and generator rental services in Nigeria.{% endblock %}">
+    <meta name="keywords" content="welding services Nigeria, metal fabrication Lagos, generator rental, argon welding, industrial welding">
+    <meta property="og:title" content="{% block og_title %}DE-GREAT WELD ENTERPRISES{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Professional metalworking and fabrication services in Nigeria.{% endblock %}">
+    <meta property="og:type" content="website">
+    
+    <title>{% block title %}DE-GREAT WELD ENTERPRISES{% endblock %}</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=photo-zoom-2">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '');
+    </script>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'core:home' %}" class="navbar-brand">DE-GREAT WELD</a>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="{% url 'core:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'core:about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+                <a href="{% url 'services:welding_list' %}" class="nav-link {% if 'services' in request.path %}active{% endif %}">Services</a>
+                <a href="{% url 'portfolio:portfolio' %}" class="nav-link {% if 'portfolio' in request.path %}active{% endif %}">Portfolio</a>
+                <a href="{% url 'applications:apply' %}" class="nav-link {% if 'apply' in request.path %}active{% endif %}">Join Our Team</a>
+                <a href="{% url 'core:contact' %}" class="nav-link {% if 'contact' in request.path %}active{% endif %}">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Page Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="grid grid-3">
+                <div class="footer-section">
+                    <h5>About Us</h5>
+                    <p>DE-GREAT WELD ENTERPRISES is Nigeria's leading provider of professional metalworking, welding, and equipment rental services.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Quick Links</h5>
+                    <a href="{% url 'services:welding_list' %}" class="footer-link">Welding Services</a>
+                    <a href="{% url 'services:generator_list' %}" class="footer-link">Generator Rentals</a>
+                    <a href="{% url 'services:scaffold_list' %}" class="footer-link">Scaffold Rentals</a>
+                    <a href="{% url 'applications:apply' %}" class="footer-link">Apply as Welder</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Contact Info</h5>
+                    <p>📍 Ikorodu, Lagos State, Nigeria</p>
+                    <p>📞 <a href="tel:+234XXXXXXXXXX" class="footer-link">+234-XXX-XXX-XXXX</a></p>
+                    <p>📧 <a href="mailto:info@degreatwelds.com" class="footer-link">info@degreatwelds.com</a></p>
+                    <a href="#" class="btn btn-whatsapp btn-sm">💬 WhatsApp</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 DE-GREAT WELD ENTERPRISES. All rights reserved.</p>
+                <p>
+                    <a href="{% url 'core:privacy' %}" class="footer-link">Privacy Policy</a> | 
+                    <a href="{% url 'core:terms' %}" class="footer-link">Terms & Conditions</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    {% load static %}
+    <script src="{% static 'js/main.js' %}?v=photo-zoom-2"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

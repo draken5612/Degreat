@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Application Submitted - DE-GREAT WELD ENTERPRISES{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container" style="max-width: 600px; text-align: center;">
+            <div style="padding: var(--spacing-2xl); background: var(--light-blue); border-radius: 0.75rem; margin-top: var(--spacing-xl);">
+                <div style="font-size: 4rem; margin-bottom: var(--spacing-lg);">✅</div>
+                <h2>Application Received!</h2>
+                <p style="font-size: 1.1rem; margin-top: var(--spacing-lg);">Thank you for your interest in joining DE-GREAT WELD ENTERPRISES.</p>
+                <p>We have received your application and will review it carefully. Our team will contact you shortly at the phone number and email you provided.</p>
+                
+                <div style="margin-top: var(--spacing-xl);">
+                    <h4>What's Next?</h4>
+                    <ul style="margin-left: var(--spacing-lg); text-align: left; color: var(--medium-gray);">
+                        <li>📋 We'll review your qualifications and experience</li>
+                        <li>📞 We'll contact you to discuss potential opportunities</li>
+                        <li>👥 If selected, you'll be invited for an interview</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 2px solid rgba(0, 82, 204, 0.3);">
+                    <p style="color: var(--medium-gray); margin-bottom: var(--spacing-lg);">In the meantime, feel free to explore our services or reach out with any questions.</p>
+                    <a href="{% url 'core:home' %}" class="btn btn-primary" style="margin-right: 1rem;">Back to Home</a>
+                    <a href="{% url 'core:contact' %}" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Portfolio - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}View our completed welding and fabrication projects. Industrial welding, metal fabrication, and structural steel projects.{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero" style="min-height: 300px;">
+        <div class="hero-content">
+            <h1>Our Portfolio</h1>
+            <p>Showcasing our expertise and quality work</p>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Projects</h2>
+                <p>Professional metalworking and fabrication projects</p>
+            </div>
+
+            {% if projects %}
+                <div class="grid grid-3">
+                    {% for project in projects %}
+                        <div class="card fade-in">
+                            <div style="height: 250px; overflow: hidden; background: var(--light-gray);">
+                                {% if project.image %}
+                                    <img src="{{ project.image.url }}" alt="{{ project.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                {% else %}
+                                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                        <span style="font-size: 3rem; color: var(--light-gray);">📷</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h4>{{ project.title }}</h4>
+                                <p class="text-muted"><strong>{{ project.get_project_type_display }}</strong></p>
+                                {% if project.client %}
+                                    <p class="text-muted"><em>Client: {{ project.client }}</em></p>
+                                {% endif %}
+                                <p>{{ project.description|truncatewords:20 }}</p>
+                                <a href="{% url 'portfolio:project_detail' project.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: var(--spacing-2xl);">
+                    <p style="color: var(--medium-gray); font-size: 1.1rem;">No projects available yet. Check back soon!</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: var(--spacing-xl);">Our Capabilities</h2>
+            <div class="grid grid-3">
+                <div style="text-align: center;">
+                    <h4>🔨 Metal Fabrication</h4>
+                    <p>Custom metal fabrication for various industrial and construction applications.</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>⚡ Professional Welding</h4>
+                    <p>Expert welding services using latest techniques and quality materials.</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>🏗️ Structural Steel</h4>
+                    <p>Heavy-duty structural steel work for major construction projects.</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>🎯 Custom Projects</h4>
+                    <p>Bespoke metalworking solutions tailored to your specific requirements.</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>✅ Quality Assurance</h4>
+                    <p>Every project undergoes rigorous quality checks and inspections.</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>⏱️ Timely Delivery</h4>
+                    <p>We meet deadlines while maintaining the highest quality standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background: linear-gradient(135deg, #0052CC, #003d99); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white;">Ready to Start Your Project?</h2>
+            <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.1rem;">Let's bring your vision to life with professional metalworking</p>
+            <div style="margin-top: var(--spacing-lg);">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg" style="background: white; color: #0052CC; margin-right: 1rem;">Get in Touch</a>
+                <a href="https://wa.me/234XXXXXXXXXX?text=Hi, I'm interested in your welding and fabrication services." class="btn btn-whatsapp btn-lg" target="_blank">Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Welding & Fabrication Services - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Professional welding services in Nigeria. Argon welding, stainless steel welding, mild steel welding, and custom metal fabrication.{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero" style="min-height: 400px;">
+        <div class="hero-content">
+            <h1>Welding & Fabrication Services</h1>
+            <p>Professional metalworking solutions for every project</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Welding Services</h2>
+                <p>Professional welding expertise for all your metalworking needs</p>
+            </div>
+
+            {% if services %}
+                <div class="grid grid-2">
+                    {% for service in services %}
+                        <div class="card">
+                            <div style="background: linear-gradient(135deg, #0052CC, #E8F0FF); height: 200px; display: flex; align-items: center; justify-content: center;">
+                                {% if service.image or service.gallery_images.all %}
+                                    {% include 'partials/photo_carousel.html' with heading=service.name images=service.gallery_images.all cover_image=service.image cover_object=service cover_alt=service.name cover_focal_x=service.focal_x cover_focal_y=service.focal_y compact=True card=True hide_heading=True %}
+                                {% else %}
+                                    <div style="font-size: 3rem;">⚡</div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h4>{{ service.name }}</h4>
+                                <p class="text-muted" style="font-weight: 600;">{{ service.get_service_type_display }}</p>
+                                <p>{{ service.description|truncatewords:30 }}</p>
+                                <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a>
+                                <a href="{% url 'core:whatsapp' %}?service={{ service.service_type }}&phone=234XXXXXXXXXX" class="btn btn-whatsapp" style="margin-left: 0.5rem;">Contact</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="text-align: center; color: var(--medium-gray);">No services available at the moment. Please check back later.</p>
+            {% endif %}
+
+            {% include 'partials/photo_carousel.html' with heading="Welding & Fabrication Projects" images=gallery_images %}
+        </div>
+    </section>
+
+    <!-- Service Details -->
+    <section class="section section-light">
+        <div class="container">
+            <h2>Why Choose Our Welding Services?</h2>
+            <div class="grid grid-3" style="margin-top: var(--spacing-xl);">
+                <div>
+                    <h4>Professional Expertise</h4>
+                    <p>Our team of certified welders brings years of experience and technical knowledge to every project.</p>
+                </div>
+                <div>
+                    <h4>Quality Guaranteed</h4>
+                    <p>We use industry-standard techniques and materials to ensure durable, reliable welds.</p>
+                </div>
+                <div>
+                    <h4>Timely Delivery</h4>
+                    <p>We work efficiently to meet your deadlines without compromising on quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section" style="background: linear-gradient(135deg, #0052CC, #003d99); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white;">Ready to Start Your Project?</h2>
+            <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.1rem;">Contact us for a free consultation and project quote</p>
+            <div style="margin-top: var(--spacing-lg);">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg" style="background: white; color: #0052CC; margin-right: 1rem;">Get in Touch</a>
+                <a href="{% url 'core:whatsapp' %}?service=welding&phone=234XXXXXXXXXX" class="btn btn-whatsapp btn-lg">Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

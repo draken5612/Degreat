@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Scaffold Rentals - DE-GREAT WELD ENTERPRISES{% endblock %}
+{% block meta_description %}Professional scaffolding rental services in Lagos, Ikorodu, and Nigeria. Construction, access, and modular scaffolding available.{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero" style="min-height: 400px;">
+        <div class="hero-content">
+            <h1>Scaffold Rental Services</h1>
+            <p>Professional scaffolding solutions for construction projects</p>
+        </div>
+    </section>
+
+    <!-- Scaffolds Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Scaffolding Options</h2>
+                <p>High-quality scaffolding for every construction need</p>
+            </div>
+
+            {% if scaffolds %}
+                <div class="grid grid-2">
+                    {% for scaffold in scaffolds %}
+                        <div class="card">
+                            <div style="background: linear-gradient(135deg, #003d99, #E8F0FF); height: 200px; display: flex; align-items: center; justify-content: center;">
+                                {% if scaffold.image or scaffold.gallery_images.all %}
+                                    {% include 'partials/photo_carousel.html' with heading=scaffold.name images=scaffold.gallery_images.all cover_image=scaffold.image cover_object=scaffold cover_alt=scaffold.name cover_focal_x=scaffold.focal_x cover_focal_y=scaffold.focal_y compact=True card=True hide_heading=True %}
+                                {% else %}
+                                    <div style="font-size: 3rem;">🏗️</div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h4>{{ scaffold.name }}</h4>
+                                <p class="text-muted"><strong>{{ scaffold.get_scaffold_type_display }}</strong></p>
+                                <p>{{ scaffold.description|truncatewords:25 }}</p>
+                                
+                                {% if scaffold.daily_rate %}
+                                    <p style="margin-top: var(--spacing-md); color: var(--primary-blue); font-weight: 600;">
+                                        From ₦{{ scaffold.daily_rate }}/day
+                                    </p>
+                                {% endif %}
+                                
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="{% url 'services:scaffold_detail' scaffold.id %}" class="btn btn-primary">View Details</a>
+                                    <a href="#" onclick="openRentalForm('{{ scaffold.name }}')" class="btn btn-whatsapp" style="margin-left: 0.5rem;">Request Rental</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="text-align: center; color: var(--medium-gray);">No scaffolds available at the moment. Please check back later.</p>
+            {% endif %}
+
+            {% include 'partials/photo_carousel.html' with heading="Scaffolding Projects" images=gallery_images %}
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section section-light">
+        <div class="container">
+            <h2>Why Choose Our Scaffolding?</h2>
+            <div class="grid grid-3" style="margin-top: var(--spacing-xl);">
+                <div>
+                    <h4>✓ Safety Standards</h4>
+                    <p>All our scaffolding meets international safety standards and is regularly inspected.</p>
+                </div>
+                <div>
+                    <h4>✓ Professional Installation</h4>
+                    <p>Our trained team ensures proper installation and safety compliance.</p>
+                </div>
+                <div>
+                    <h4>✓ Flexible Terms</h4>
+                    <p>Daily, weekly, and monthly rental options to fit your project timeline.</p>
+                </div>
+                <div>
+                    <h4>✓ Wide Coverage</h4>
+                    <p>Available in Lagos, Ikorodu, Ginti, and nationwide Nigeria.</p>
+                </div>
+                <div>
+                    <h4>✓ Quick Delivery</h4>
+                    <p>Fast delivery and setup to get your project started immediately.</p>
+                </div>
+                <div>
+                    <h4>✓ Affordable Rates</h4>
+                    <p>Competitive pricing with no hidden charges or additional fees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background: linear-gradient(135deg, #0052CC, #003d99); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white;">Ready for Your Scaffolding Needs?</h2>
+            <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.1rem;">Contact us for availability, pricing, and installation arrangements</p>
+            <div style="margin-top: var(--spacing-lg);">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg" style="background: white; color: #0052CC; margin-right: 1rem;">Request Quote</a>
+                <a href="https://wa.me/234XXXXXXXXXX?text=Hi, I need scaffolding rental. Can you provide details?" class="btn btn-whatsapp btn-lg" target="_blank">Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function openRentalForm(scaffoldName) {
+            const message = `Hi, I'm interested in renting the ${scaffoldName}. Can you provide details on availability and pricing?`;
+            window.open(`https://wa.me/234XXXXXXXXXX?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+{% endblock %}
