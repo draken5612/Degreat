@@ -172,6 +172,26 @@ SQLite changes, admin uploads, and form-uploaded files are not durable and can
 be lost after a restart or redeploy. Use a persistent database and file-storage
 service before relying on the site for live customer submissions.
 
+#### One-time admin password reset on the free plan
+
+Render's free web service does not provide Shell access. To create a superuser
+or reset an existing superuser during a build:
+
+1. In the Render service dashboard, open **Environment** and add
+   `BOOTSTRAP_ADMIN_USERNAME` and `BOOTSTRAP_ADMIN_PASSWORD`. Use the exact
+   existing superuser username to reset it, or choose a new username to create
+   another superuser. Choose a unique password that meets Django's password
+   policy; do not use a password shared in chat.
+2. Select **Save, rebuild, and deploy**. The build will create or reset that
+   superuser without printing the password.
+3. After the deploy succeeds, remove both bootstrap variables and choose
+   **Save only** so removing them does not trigger another build.
+4. Sign in at `/admin/`.
+
+This is only a temporary workaround: the free service's SQLite database is
+ephemeral and can be lost when the service restarts or is redeployed. For
+reliable admin access and data retention, configure a persistent database.
+
 ### 3. Custom Domain Setup
 
 1. In Render dashboard, go to Settings

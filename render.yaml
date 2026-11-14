@@ -3,7 +3,7 @@ services:
     name: degreat-weld
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py populate_data
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py populate_data && python manage.py bootstrap_admin
     startCommand: gunicorn degreat_config.wsgi:application
     envVars:
       - key: PYTHON_VERSION
