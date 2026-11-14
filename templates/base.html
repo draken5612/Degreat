@@ -12,8 +12,7 @@
     <title>{% block title %}DE-GREAT WELD ENTERPRISES{% endblock %}</title>
     
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=photo-zoom-2">
- 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=responsive-1">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -31,7 +30,13 @@
     <nav class="navbar">
         <div class="container d-flex justify-content-between align-items-center">
             <a href="{% url 'core:home' %}" class="navbar-brand">DE-GREAT WELD</a>
-            
+
+            <button type="button" class="menu-toggle" id="menuToggle" aria-controls="navMenu" aria-expanded="false" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
             <div class="nav-menu" id="navMenu">
                 <a href="{% url 'core:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
                 <a href="{% url 'core:about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
@@ -94,7 +99,7 @@
     </footer>
 
     {% load static %}
-    <script src="{% static 'js/main.js' %}?v=photo-zoom-2"></script>
+    <script src="{% static 'js/main.js' %}?v=responsive-1"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
