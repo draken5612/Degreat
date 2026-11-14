@@ -2,6 +2,8 @@
    DE-GREAT WELD ENTERPRISES - Main JavaScript
    ======================================== */
 
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize smooth scrolling
     initSmoothScroll();
@@ -294,15 +296,35 @@ function initSmoothScroll() {
  * Initialize mobile menu toggle
  */
 function initMobileMenu() {
-    // Add this if you implement mobile menu functionality
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
-    
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
-    }
+
+    if (!menuToggle || !navMenu) return;
+
+    const closeMenu = () => {
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation menu');
+    };
+
+    menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        navMenu.classList.toggle('active', !isExpanded);
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+        menuToggle.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.matchMedia('(min-width: 769px)').matches) closeMenu();
+    });
 }
 
 /**
